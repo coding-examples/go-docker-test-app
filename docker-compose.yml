@@ -1,0 +1,18 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  web:
+    container_name: my-test-app
+    build: .
+    ports:
+      - "1234:1234"
+  calibre:
+    image: linuxserver/calibre-web
+    container_name: calibre
+    restart: unless-stopped
+    ports:
+      - "1234:1234"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cal.rule=Host(`test.dutchemailserver.com`)"
+      - "traefik.http.routers.cal.entrypoints=web"
+      - "traefik.http.services.cal.loadbalancer.server.port=1234"
