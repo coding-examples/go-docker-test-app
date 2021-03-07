@@ -1,10 +1,6 @@
-FROM golang:1.14
-
+FROM golang:1.14-alpine3.13
 RUN mkdir /app
 ADD . /app
-
 WORKDIR /app
-
 RUN go build -o main .
-
 CMD ["/app/main"]
